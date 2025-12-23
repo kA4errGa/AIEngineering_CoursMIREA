@@ -2,7 +2,7 @@
 
 Расширенная версия проекта `eda-cli` из Семинара 03.
 
-К существующему CLI-приложению для EDA добавлен **HTTP-сервис на FastAPI** с эндпоинтами `/health`, `/quality` и `/quality-from-csv`.  
+К существующему CLI-приложению для EDA добавлен **HTTP-сервис на FastAPI** с эндпоинтами `/health`, `/quality`, `/quality-from-csv` и `quality-flags-from-csv`.  
 Используется в рамках Семинара 04 курса «Инженерия ИИ».
 
 ---
@@ -144,7 +144,8 @@ http://127.0.0.1:8000/docs
 
 - вызывать `GET /health`;
 - вызывать `POST /quality` (форма для JSON);
-- вызывать `POST /quality-from-csv` (форма для загрузки файла).
+- вызывать `POST /quality-from-csv` (форма для загрузки файла);
+- вызывать `POST /quality-flags-from-csv` (форма для загрузки файла). 
 
 ---
 
@@ -336,4 +337,4 @@ uv run pytest -q
 
 1. Запустить тесты `pytest`;
 2. Проверить работу CLI (`uv run eda-cli ...`);
-3. Проверить работу HTTP-сервиса (`uv run uvicorn ...`, затем `/health` и `/quality`/`/quality-from-csv` через `/docs` или HTTP-клиент).
+3. Проверить работу HTTP-сервиса (`uv run uvicorn ...`, затем `/health` и `/quality`/`/quality-from-csv` и `/quality-flags-from-csv` через `/docs` или HTTP-клиент).
