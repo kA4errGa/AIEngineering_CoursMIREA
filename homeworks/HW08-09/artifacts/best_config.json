@@ -1,0 +1,25 @@
+{
+    "dataset": "EMNIST",
+    "seed": 42,
+    "architecture": {
+        "type": "MLP",
+        "input_dim": 784,
+        "hidden_dims": [
+            512,
+            256,
+            128
+        ],
+        "activation": "ReLU",
+        "dropout": 0.0,
+        "batchnorm": true,
+        "num_classes": 47
+    },
+    "training": {
+        "optimizer": "Adam",
+        "lr": 0.001,
+        "momentum": 0,
+        "weight_decay": 0,
+        "epochs": 14,
+        "batch_size": 128
+    }
+}
