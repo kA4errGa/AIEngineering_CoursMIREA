@@ -1,8 +1,8 @@
-experiment_id,dataset,seed,model_summary,optimizer,lr,momentum,weight_decay,epochs_trained,best_val_accuracy,best_val_loss  
+experiment_id,dataset,seed,model_summary,optimizer,lr,momentum,weight_decay,epochs_trained,best_val_accuracy,best_val_loss,
 E1,EMNIST,42,"{'hiden size': (512, 256, 128), 'activation': 'ReLU', 'dropout': 0.0, 'batchnorm': False}",Adam,0.001,0.0,0.0,20.0,0.8476341807909604,0.4590806886974701,
 E2,EMNIST,42,"{'hiden size': (512, 256, 128), 'activation': 'ReLU', 'dropout': 0.3, 'batchnorm': False}",Adam,0.001,0.0,0.0,20.0,0.855711511299435,0.4354589902243371,
 E3,EMNIST,42,"{'hiden size': (512, 256, 128), 'activation': 'ReLU', 'dropout': 0.0, 'batchnorm': True}",Adam,0.001,0.0,0.0,20.0,0.85888947740113,0.4252509789615027,
 E4,EMNIST,42,"{'hiden size': (512, 256, 128), 'activation': 'ReLU', 'dropout': 0.0, 'batchnorm': True}",Adam,0.001,0.0,0.0,14.0,0.8576977401129944,0.4245391919114495,
-O1,EMNIST,42,"{'hiden size': (512, 256, 128), 'activation': 'ReLU', 'dropout': 0.0, 'batchnorm': True}",Adam,0.3,0.0,0.0,8.0,0.788135593220339,
-O2,EMNIST,42,"{'hiden size': (512, 256, 128), 'activation': 'ReLU', 'dropout': 0.0, 'batchnorm': True}",Adam,1e-06,0.0,0.0,8.0,0.3892125706214689,
-O3,EMNIST,42,"{'hiden size': (512, 256, 128), 'activation': 'ReLU', 'dropout': 0.0, 'batchnorm': True}",SGD,0.001,0.9,0.0001,15.0,0.8459569209039548,
+O1,EMNIST,42,"{'hiden size': (512, 256, 128), 'activation': 'ReLU', 'dropout': 0.0, 'batchnorm': True}",Adam,0.3,0.0,0.0,8.0,0.788135593220339, 0.0 
+O2,EMNIST,42,"{'hiden size': (512, 256, 128), 'activation': 'ReLU', 'dropout': 0.0, 'batchnorm': True}",Adam,1e-06,0.0,0.0,8.0,0.3892125706214689, 0.0
+O3,EMNIST,42,"{'hiden size': (512, 256, 128), 'activation': 'ReLU', 'dropout': 0.0, 'batchnorm': True}",SGD,0.001,0.9,0.0001,15.0,0.8459569209039548, 0.0
