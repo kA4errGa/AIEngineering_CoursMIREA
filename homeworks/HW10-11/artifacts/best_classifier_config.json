@@ -1,0 +1,23 @@
+{
+    "dataset": "STL10",
+    "seed": 42,
+    "type": "ResNet18(fine-tune)",
+    "input_dim": [
+        3,
+        96,
+        96
+    ],
+    "num_classes": 10,
+    "activation": "ReLU",
+    "dropout": 0.0,
+    "batchnorm": false,
+    "transforms": "Resize(110); RandomResizedCrop(96, scale=(0.7, 1.0)); RandomHorizontalFlip",
+    "optimizer": "Adam",
+    "lr": [
+        0.0001,
+        0.001
+    ],
+    "weight_decay": 0.0001,
+    "epochs": 10,
+    "batch_size": 64
+}
