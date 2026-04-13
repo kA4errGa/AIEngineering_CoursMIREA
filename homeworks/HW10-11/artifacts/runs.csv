@@ -1,7 +1,7 @@
-experiment_id,task,dataset,seed,model_summary,optimizer,lr,epochs_trained,best_val_accuracy,test_accuracy,precision,recall,mean_iou,note,Unnamed: 15
+experiment_id,task,dataset,seed,model_summary,optimizer,lr,epochs_trained,best_val_accuracy,test_accuracy,precision,recall,mean_iou,notes,Unnamed: 15
 С1,classification,STL10,42,"{'features': {'Conv2d': (3, 32, 64, 128, 256), 'activation': 'ReLU', 'MaxPool2d': 2}, 'classifier': {'hiden size': (512, 64), 'activation': 'ReLU', 'dropout': 0.2, 'batchnorm': True}}",Adam,0.001,20.0,0.655,0.618625,,,,,
 C2,classification,STL10,42,"{'features': {'Conv2d': (3, 32, 64, 128, 256), 'activation': 'ReLU', 'MaxPool2d': 2}, 'classifier': {'hiden size': (512, 64), 'activation': 'ReLU', 'dropout': 0.2, 'batchnorm': True}}",Adam,0.001,19.0,0.688,0.6835,,,,,
 C3,classification,STL10,42,"{'features': 'resnet18_weights', 'classifier': {'hiden size': (), 'activation': 'ReLU', 'dropout': 0.0, 'batchnorm': False}}",Adam,0.001,10.0,0.829,0.79,,,,,
 C4,classification,STL10,42,"{'features': 'fine-tune (reconfigured 4 layer)', 'classifier': {'hiden size': (), 'activation': 'ReLU', 'dropout': 0.0, 'batchnorm': False}}",Adam,0.001,10.0,0.884,0.887875,,,,,
-V1,segmentation,OxfordIIITPet,42,"{'architecture': 'deeplabv3_resnet50', 'weights': 'DeepLabV3_ResNet50_Weights'}",,,,,,,,0.3041361094517799,50.0,
-V2,segmentation,OxfordIIITPet,42,"{'architecture': 'deeplabv3_resnet50', 'weights': 'DeepLabV3_ResNet50_Weights', 'prod': 'probs > 0.3'}",,,,,,,,0.3224936058969037,50.0,
+V1,segmentation,OxfordIIITPet,42,"{'architecture': 'deeplabv3_resnet50', 'weights': 'DeepLabV3_ResNet50_Weights', 'prod': 'probs > 0.3'}",,,,,,0.7165,0.9645,0.7023,threshold=0.3,
+V2,segmentation,OxfordIIITPet,42,"{'architecture': 'deeplabv3_resnet50', 'weights': 'DeepLabV3_ResNet50_Weights', 'prod': 'probs > 0.7'}",,,,,,0.7945,0.9276,0.7574,"threshold=0.7, postprocess=remove_small_components",

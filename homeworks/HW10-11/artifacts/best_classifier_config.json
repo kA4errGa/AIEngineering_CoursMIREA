@@ -1,7 +1,7 @@
 {
     "dataset": "STL10",
     "seed": 42,
-    "type": "ResNet18(fine-tune)",
+    "model": "ResNet18(fine-tune)",
     "input_dim": [
         3,
         96,
