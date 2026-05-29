@@ -1,0 +1,37 @@
+{
+  "model_name": "RandomForestClassifier",
+  "pipeline": {
+    "classifier": {
+      "class_name": "RandomForestClassifier",
+      "parameters": {
+        "random_state": 42,
+        "class_weight": "balanced",
+        "bootstrap": false,
+        "criterion": "gini",
+        "max_depth": 30,
+        "max_features": "sqrt",
+        "min_samples_leaf": 10,
+        "min_samples_split": 37,
+        "n_estimators": 127
+      }
+    }
+  },
+  "train_test_split": {
+    "test_size": 0.3,
+    "validation_size": 0.15,
+    "random_state": 42,
+    "stratify": true
+  },
+  "target_column": "Default",
+  "artifacts": {
+    "model_path": "./artifacts/BestModel/best_model.joblib",
+    "metrics_path": "./artifacts/BestModel/TestEval.csv"
+  },
+  "preprocessing": {
+    "drop_columns": [
+      "LoanID"
+    ],
+    "categorical_encoding": "one-hot encoding",
+    "boolean_cast": "int64"
+  }
+}

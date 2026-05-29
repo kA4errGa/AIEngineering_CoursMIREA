@@ -1,0 +1,27 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+COPY requirements.txt .
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --upgrade pip
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+# Обучение модели
+RUN python -m src.models.train_pipeline
+
+EXPOSE 8000
+
+CMD ["uvicorn", "src.service.main:app", "--host", "0.0.0.0", "--port", "8000"]

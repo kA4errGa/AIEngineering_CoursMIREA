@@ -1,0 +1,2 @@
+APP_NAME=AI credit risk assessment
+MODEL_PATH=artifacts/BestModel/best_model.joblib

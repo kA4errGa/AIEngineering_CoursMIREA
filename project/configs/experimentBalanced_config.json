@@ -1,0 +1,311 @@
+{
+    "experiment": {
+        "data_path": "../data/PROCESSED/LoanDefaultPredictionDatasetPROC.csv",
+        "target_column": "Default",
+        "random_state": 42,
+        "test_size": 0.3,
+        "val_size": 0.5,
+        "stratify": true,
+        "balance_train": true,
+        "balance_method": "SMOTETomek"
+    },
+    "random_search_params": {
+        "logreg": {
+            "n_iter": 500,
+            "cv": 5,
+            "scoring": "f1",
+            "param_distributions": {
+                "logreg__C": "loguniform(0.01, 100)",
+                "logreg__penalty": [
+                    "l1",
+                    "l2",
+                    "elasticnet"
+                ],
+                "logreg__l1_ratio": "uniform(0, 1)",
+                "logreg__tol": "loguniform(1e-5, 1e-3)",
+                "logreg__max_iter": "randint(1000, 5001)",
+                "logreg__class_weight": [
+                    "balanced",
+                    null
+                ],
+                "logreg__fit_intercept": [
+                    true,
+                    false
+                ]
+            }
+        },
+        "decision_tree": {
+            "n_iter": 500,
+            "cv": 5,
+            "scoring": "f1",
+            "param_distributions": {
+                "max_depth": "randint(3, 30)",
+                "min_samples_split": "randint(20, 200)",
+                "min_samples_leaf": "randint(10, 100)",
+                "criterion": [
+                    "gini",
+                    "entropy",
+                    "log_loss"
+                ],
+                "max_features": [
+                    "sqrt",
+                    "log2",
+                    null,
+                    0.3,
+                    0.5,
+                    0.7
+                ],
+                "min_weight_fraction_leaf": "uniform(0, 0.05)",
+                "min_impurity_decrease": [
+                    0.0,
+                    1e-07,
+                    1e-06,
+                    1e-05,
+                    0.0001
+                ],
+                "ccp_alpha": [
+                    0.0,
+                    0.0001,
+                    0.001,
+                    0.005,
+                    0.01,
+                    0.05
+                ],
+                "splitter": [
+                    "best",
+                    "random"
+                ]
+            }
+        },
+        "random_forest": {
+            "n_iter": 30,
+            "cv": 3,
+            "scoring": "f1",
+            "param_distributions": {
+                "n_estimators": "randint(100, 300)",
+                "max_depth": [
+                    15,
+                    30,
+                    null
+                ],
+                "min_samples_split": "randint(10, 200)",
+                "min_samples_leaf": "randint(5, 100)",
+                "max_features": [
+                    "sqrt",
+                    "log2",
+                    null,
+                    0.3,
+                    0.5,
+                    0.7
+                ],
+                "criterion": [
+                    "gini",
+                    "entropy"
+                ],
+                "bootstrap": [
+                    true,
+                    false
+                ]
+            }
+        },
+        "xgboost": {
+            "n_iter": 30,
+            "cv": 3,
+            "scoring": "f1",
+            "param_distributions": {
+                "n_estimators": "randint(100, 500)",
+                "max_depth": "randint(3, 12)",
+                "learning_rate": "uniform(0.01, 0.3)",
+                "subsample": "uniform(0.6, 0.4)",
+                "colsample_bytree": "uniform(0.6, 0.4)",
+                "colsample_bylevel": "uniform(0.6, 0.4)",
+                "colsample_bynode": "uniform(0.6, 0.4)",
+                "reg_alpha": "uniform(0, 2)",
+                "reg_lambda": "uniform(0, 2)",
+                "min_child_weight": "randint(1, 10)",
+                "booster": [
+                    "gbtree",
+                    "dart"
+                ],
+                "sample_type": [
+                    "uniform",
+                    "weighted"
+                ],
+                "normalize_type": [
+                    "tree",
+                    "forest"
+                ],
+                "rate_drop": "uniform(0, 0.5)",
+                "skip_drop": "uniform(0, 0.5)"
+            }
+        },
+        "lightgbm": {
+            "n_iter": 100,
+            "cv": 5,
+            "scoring": "f1",
+            "param_distributions": {
+                "n_estimators": "randint(100, 1000)",
+                "max_depth": "randint(3, 15)",
+                "num_leaves": "randint(10, 150)",
+                "learning_rate": "uniform(0.01, 0.3)",
+                "subsample": "uniform(0.6, 0.4)",
+                "subsample_freq": "randint(1, 10)",
+                "colsample_bytree": "uniform(0.6, 0.4)",
+                "reg_alpha": "uniform(0, 2)",
+                "reg_lambda": "uniform(0, 2)",
+                "min_child_samples": "randint(5, 50)",
+                "min_child_weight": "uniform(0, 0.1)",
+                "boosting_type": [
+                    "gbdt",
+                    "dart",
+                    "goss"
+                ]
+            }
+        }
+    },
+    "models": {
+        "logreg_balanced": {
+            "model_name": "LogRegBalanced",
+            "is_pipeline": true,
+            "scaler": {
+                "name": "StandardScaler",
+                "params": {
+                    "copy": true,
+                    "with_mean": true,
+                    "with_std": true
+                }
+            },
+            "logreg": {
+                "penalty": "elasticnet",
+                "C": 0.13431925993528135,
+                "solver": "saga",
+                "random_state": 42,
+                "class_weight": null,
+                "max_iter": 3239,
+                "tol": 0.0009572167377160833,
+                "fit_intercept": true,
+                "l1_ratio": 0.7506147516408583
+            }
+        },
+        "decision_tree_balanced": {
+            "model_name": "DecisionTreeBalanced",
+            "is_pipeline": false,
+            "params": {
+                "random_state": 42,
+                "class_weight": "balanced",
+                "ccp_alpha": 0.0001,
+                "criterion": "entropy",
+                "max_depth": 24,
+                "max_features": null,
+                "min_impurity_decrease": 0.0001,
+                "min_samples_leaf": 50,
+                "min_samples_split": 180,
+                "min_weight_fraction_leaf": 0.0009037681807760434,
+                "splitter": "random"
+            }
+        },
+        "random_forest_balanced": {
+            "model_name": "RandomForestBalanced",
+            "is_pipeline": false,
+            "params": {
+                "random_state": 42,
+                "class_weight": "balanced",
+                "bootstrap": false,
+                "criterion": "gini",
+                "max_depth": 30,
+                "max_features": "sqrt",
+                "min_samples_leaf": 10,
+                "min_samples_split": 37,
+                "n_estimators": 127
+            }
+        },
+        "xgboost_balanced": {
+            "model_name": "XgbBalanced",
+            "is_pipeline": false,
+            "params": {
+                "random_state": 42,
+                "use_label_encoder": false,
+                "eval_metric": "logloss",
+                "n_jobs": -1,
+                "scale_pos_weight": null,
+                "booster": "gbtree",
+                "colsample_bylevel": 0.9376852562905246,
+                "colsample_bynode": 0.9720067339243328,
+                "colsample_bytree": 0.6281664523398175,
+                "learning_rate": 0.07267561528460804,
+                "max_depth": 8,
+                "min_child_weight": 7,
+                "n_estimators": 226,
+                "normalize_type": "tree",
+                "rate_drop": 0.14764529420946937,
+                "reg_alpha": 0.645101528477201,
+                "reg_lambda": 1.6973395898493489,
+                "sample_type": "uniform",
+                "skip_drop": 0.35124204199355463,
+                "subsample": 0.743796460487902
+            }
+        },
+        "lightgbm_balanced": {
+            "model_name": "LgbBalanced",
+            "is_pipeline": false,
+            "params": {
+                "random_state": 42,
+                "verbose": -1,
+                "n_jobs": -1,
+                "scale_pos_weight": null,
+                "boosting_type": "gbdt",
+                "colsample_bytree": 0.6769156075234684,
+                "learning_rate": 0.02226058487994366,
+                "max_depth": 7,
+                "min_child_samples": 22,
+                "min_child_weight": 0.027859033903195864,
+                "n_estimators": 928,
+                "num_leaves": 31,
+                "reg_alpha": 0.17740506751411123,
+                "reg_lambda": 0.24127174220120162,
+                "subsample": 0.7843115072130903,
+                "subsample_freq": 2
+            }
+        },
+        "mlp_balanced": {
+            "model_name": "MLP",
+            "is_pipeline": false,
+            "params": {
+                "input_dim": 31,
+                "hidden_dims": [
+                    1024,
+                    512,
+                    1024,
+                    512,
+                    256,
+                    512,
+                    256,
+                    128,
+                    256,
+                    128,
+                    64,
+                    128,
+                    64,
+                    32,
+                    64,
+                    32
+                ],
+                "num_classes": 2,
+                "activation": "relu",
+                "dropout_p": 0.25,
+                "use_batchnorm": true,
+                "optimizer": "Adam",
+                "learning_rate": 0.001,
+                "epochs": 30,
+                "batch_size": 512,
+                "early_stopping_patience": 10,
+                "clip_grad_norm": 1.0
+            }
+        }
+    },
+    "artifacts": {
+        "metrics_path": "../artifacts/ExperimentBalanced/runsBalanced.csv",
+        "figures_dir": "../artifacts/ExperimentBalanced/figures",
+        "config_path": "../configs/experimentBalanced_config.json"
+    }
+}

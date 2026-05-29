@@ -1,0 +1,201 @@
+{
+    "experiment": {
+        "data_path": "../data/PROCESSED/LoanDefaultPredictionDatasetPROC.csv",
+        "target_column": "Default",
+        "random_state": 42,
+        "test_size": 0.3,
+        "val_size": 0.5,
+        "stratify": true,
+        "device": "cuda",
+        "description": "MLP model for binary classification with class imbalance handling"
+    },
+    "preprocessing": {
+        "scaler": {
+            "name": "StandardScaler",
+            "fit_on": "train",
+            "transform_all": true
+        },
+        "data_loader": {
+            "batch_size": 512,
+            "num_workers": 0,
+            "pin_memory": false,
+            "shuffle_train": true,
+            "shuffle_val_test": false
+        }
+    },
+    "random_search_params": {
+        "enabled": false,
+        "n_iter": null,
+        "cv": null,
+        "scoring": "f1",
+        "param_distributions": {
+            "learning_rate": [
+                "loguniform(1e-4, 1e-2)"
+            ],
+            "dropout_p": [
+                "uniform(0.1, 0.5)"
+            ],
+            "hidden_dims_config": [
+                "predefined"
+            ],
+            "batch_size": [
+                256,
+                512,
+                1024
+            ],
+            "optimizer": [
+                "Adam",
+                "AdamW",
+                "SGD"
+            ],
+            "activation": [
+                "relu",
+                "gelu",
+                "tanh"
+            ]
+        }
+    },
+    "models": {
+        "mlp_trained": {
+            "model_name": "MLP_MultiLayerPerceptron",
+            "is_pytorch_model": true,
+            "architecture": {
+                "input_dim": 31,
+                "hidden_dims": [
+                    1024,
+                    512,
+                    1024,
+                    512,
+                    256,
+                    512,
+                    256,
+                    128,
+                    256,
+                    128,
+                    64,
+                    128,
+                    64,
+                    32,
+                    64,
+                    32
+                ],
+                "num_classes": 2,
+                "activation": "relu",
+                "dropout_p": 0.25,
+                "use_batchnorm": true
+            },
+            "optimizer": {
+                "name": "Adam",
+                "learning_rate": 0.001,
+                "params": {
+                    "betas": [
+                        0.9,
+                        0.999
+                    ],
+                    "eps": 1e-08,
+                    "weight_decay": 0.0,
+                    "amsgrad": false
+                }
+            },
+            "criterion": {
+                "name": "CrossEntropyLoss",
+                "class_weight": "balanced",
+                "computed_from": "y_train"
+            },
+            "training": {
+                "max_epochs": 30,
+                "early_stopping_patience": 10,
+                "early_stopping_min_delta": 0.0,
+                "gradient_clip_norm": 1.0,
+                "class_weights_calculation": "compute_class_weight('balanced')"
+            }
+        },
+        "mlp_best": {
+            "model_name": "MLP_BestModel",
+            "is_pytorch_model": true,
+            "architecture": {
+                "input_dim": 31,
+                "hidden_dims": [
+                    1024,
+                    512,
+                    1024,
+                    512,
+                    256,
+                    512,
+                    256,
+                    128,
+                    256,
+                    128,
+                    64,
+                    128,
+                    64,
+                    32,
+                    64,
+                    32
+                ],
+                "num_classes": 2,
+                "activation": "relu",
+                "dropout_p": 0.25,
+                "use_batchnorm": true
+            },
+            "training_info": {
+                "stopped_epoch": 16,
+                "best_val_f1": 0.3557939898967743,
+                "total_epochs_trained": 16
+            }
+        }
+    },
+    "evaluation_metrics": [
+        "accuracy",
+        "f1_score",
+        "precision",
+        "recall",
+        "roc_auc"
+    ],
+    "outputs": {
+        "metrics_csv": "../artifacts/ExperimentMLP/runsMLP.csv",
+        "figures_directory": "../artifacts/ExperimentMLP/figures",
+        "figures": [
+            {
+                "name": "loss_hist.png",
+                "type": "training_history",
+                "title": "modelB1 history (loss)"
+            },
+            {
+                "name": "f_hist.png",
+                "type": "training_history",
+                "title": "modelB1 history (Fscore)"
+            },
+            {
+                "name": "CmMLP.png",
+                "type": "confusion_matrix",
+                "title": "CmMLP"
+            },
+            {
+                "name": "RocMLP.png",
+                "type": "roc_curve",
+                "title": "RocMLP"
+            },
+            {
+                "name": "PrMLP.png",
+                "type": "pr_curve",
+                "title": "PrMLP"
+            }
+        ]
+    },
+    "model_hyperparameters_summary": {
+        "total_parameters": "~1.5M (estimated)",
+        "hidden_layers_count": 16,
+        "dropout_p": 0.25,
+        "batch_norm": true,
+        "activation_function": "ReLU"
+    },
+    "training_notes": {
+        "class_imbalance_handling": "class_weight='balanced' for CrossEntropyLoss",
+        "early_stopping": "Stopped at epoch 16, best val_f1=0.3558",
+        "device_used": "cuda",
+        "pytorch_version": "2.1.2+cu118",
+        "cuda_version": "11.8",
+        "gradient_clipping": "enabled (max_norm=1.0)"
+    }
+}

@@ -1,0 +1,73 @@
+{
+    "experiment": {
+        "data_path": "/data/PROCESSED/LoanDefaultPredictionDatasetPROC.csv",
+        "target_column": "Default",
+        "random_state": 42,
+        "test_size": 0.3,
+        "val_size": 0.5,
+        "stratify": true
+    },
+    "models": {
+        "logreg": {
+            "model_name": "LogisticRegressionBaseline",
+            "scaler": {
+                "name": "StandardScaler",
+                "params": {
+                    "copy": true,
+                    "with_mean": true,
+                    "with_std": true
+                }
+            },
+            "logreg": {
+                "penalty": "l2",
+                "C": 1.0,
+                "solver": "saga",
+                "random_state": 42,
+                "class_weight": "balanced",
+                "max_iter": 1000,
+                "tol": 0.0001,
+                "fit_intercept": true,
+                "dual": false
+            }
+        },
+        "decision_tree": {
+            "model_name": "DecisionTreeBaseline",
+            "params": {
+                "random_state": 42,
+                "class_weight": "balanced",
+                "max_depth": 15,
+                "min_samples_split": 100,
+                "min_samples_leaf": 50,
+                "criterion": "entropy",
+                "splitter": "best",
+                "min_weight_fraction_leaf": 0.0,
+                "max_features": null,
+                "max_leaf_nodes": null,
+                "min_impurity_decrease": 0.0,
+                "ccp_alpha": 0.0
+            }
+        },
+        "random_forest": {
+            "model_name": "RandomForestBaseline",
+            "params": {
+                "n_estimators": 100,
+                "min_samples_split": 100,
+                "min_samples_leaf": 50,
+                "class_weight": "balanced",
+                "n_jobs": -1,
+                "random_state": 42,
+                "criterion": "gini",
+                "max_depth": null,
+                "max_features": "sqrt",
+                "max_leaf_nodes": null,
+                "min_impurity_decrease": 0.0,
+                "bootstrap": true,
+                "oob_score": false,
+                "verbose": 0,
+                "warm_start": false,
+                "ccp_alpha": 0.0,
+                "max_samples": null
+            }
+        }
+    }
+}

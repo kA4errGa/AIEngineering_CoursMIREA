@@ -1,0 +1,47 @@
+# Core data science
+numpy==1.24.3
+pandas==2.0.3
+scipy==1.11.4
+
+# Machine learning
+scikit-learn==1.3.2
+
+# Deep learning
+--extra-index-url https://download.pytorch.org/whl/cu118
+torch==2.1.2
+
+# API and web framework
+fastapi==0.108.0
+uvicorn[standard]==0.25.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
+# Model serialization
+joblib==1.3.2
+
+# Visualization
+matplotlib==3.8.2
+seaborn==0.13.0
+
+# Logging and monitoring
+python-json-logger==2.0.7
+
+# Testing
+pytest==7.4.4
+httpx==0.25.2  # для тестирования FastAPI
+
+# Utilities
+python-dotenv==1.0.0
+pyyaml==6.0.1
+tqdm==4.66.1
+
+# Kaggle (для скачивания датасетов, опционально)
+kagglehub[pandas-datasets]==1.0.0
+openpyxl>=3.1.2
+
+# Balance learning
+imbalanced-learn==0.11.0
+
+# Gradient Boosting
+xgboost==2.0.3
+lightgbm==4.1.0

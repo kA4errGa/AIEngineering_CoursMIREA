@@ -1,0 +1,184 @@
+{
+    "experiment": {
+        "data_path": "../data/PROCESSED/LoanDefaultPredictionDatasetPROC.csv",
+        "target_column": "Default",
+        "random_state": 42,
+        "test_size": 0.3,
+        "val_size": 0.5,
+        "stratify": true,
+        "scale_pos_weight": "auto",
+        "description": "Gradient Boosting models (XGBoost, LightGBM) for binary classification with class imbalance"
+    },
+    "random_search_params": {
+        "xgboost": {
+            "n_iter": 30,
+            "cv": 3,
+            "scoring": "f1",
+            "param_distributions": {
+                "n_estimators": "randint(100, 500)",
+                "max_depth": "randint(3, 12)",
+                "learning_rate": "uniform(0.01, 0.3)",
+                "subsample": "uniform(0.6, 0.4)",
+                "colsample_bytree": "uniform(0.6, 0.4)",
+                "colsample_bylevel": "uniform(0.6, 0.4)",
+                "colsample_bynode": "uniform(0.6, 0.4)",
+                "reg_alpha": "uniform(0, 2)",
+                "reg_lambda": "uniform(0, 2)",
+                "min_child_weight": "randint(1, 10)",
+                "booster": [
+                    "gbtree",
+                    "dart"
+                ],
+                "sample_type": [
+                    "uniform",
+                    "weighted"
+                ],
+                "normalize_type": [
+                    "tree",
+                    "forest"
+                ],
+                "rate_drop": "uniform(0, 0.5)",
+                "skip_drop": "uniform(0, 0.5)"
+            }
+        },
+        "lightgbm": {
+            "n_iter": 100,
+            "cv": 5,
+            "scoring": "f1",
+            "param_distributions": {
+                "n_estimators": "randint(100, 1000)",
+                "max_depth": "randint(3, 15)",
+                "num_leaves": "randint(10, 150)",
+                "learning_rate": "uniform(0.01, 0.3)",
+                "subsample": "uniform(0.6, 0.4)",
+                "subsample_freq": "randint(1, 10)",
+                "colsample_bytree": "uniform(0.6, 0.4)",
+                "reg_alpha": "uniform(0, 2)",
+                "reg_lambda": "uniform(0, 2)",
+                "min_child_samples": "randint(5, 50)",
+                "min_child_weight": "uniform(0, 0.1)",
+                "boosting_type": [
+                    "gbdt",
+                    "dart",
+                    "goss"
+                ]
+            },
+            "notes": {
+                "warnings": "GOSS + bagging (subsample) \u043d\u0435\u0441\u043e\u0432\u043c\u0435\u0441\u0442\u0438\u043c\u044b \u2014 \u0447\u0430\u0441\u0442\u044c \u043a\u043e\u043c\u0431\u0438\u043d\u0430\u0446\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0430\u043b\u0430\u0441\u044c \u0441 \u043e\u0448\u0438\u0431\u043a\u043e\u0439"
+            }
+        }
+    },
+    "models": {
+        "xgboost_optimized": {
+            "model_name": "XGBoostOptimized",
+            "is_sklearn_like": true,
+            "params": {
+                "booster": "dart",
+                "colsample_bylevel": 0.8428136990746738,
+                "colsample_bynode": 0.7103996728090174,
+                "colsample_bytree": 0.718509402281633,
+                "learning_rate": 0.05958008171890075,
+                "max_depth": 11,
+                "min_child_weight": 7,
+                "n_estimators": 108,
+                "normalize_type": "forest",
+                "rate_drop": 0.19744075908778486,
+                "reg_alpha": 0.5869763494360762,
+                "reg_lambda": 0.02815964543016891,
+                "sample_type": "uniform",
+                "skip_drop": 0.35342867192380856,
+                "subsample": 0.8916028672163949,
+                "random_state": 42,
+                "use_label_encoder": false,
+                "eval_metric": "logloss",
+                "n_jobs": -1
+            }
+        },
+        "lightgbm_optimized": {
+            "model_name": "LightGBMOptimized",
+            "is_sklearn_like": true,
+            "params": {
+                "boosting_type": "dart",
+                "colsample_bytree": 0.7480634801021777,
+                "learning_rate": 0.01463698495866023,
+                "max_depth": 10,
+                "min_child_samples": 33,
+                "min_child_weight": 0.04281841483173143,
+                "n_estimators": 280,
+                "num_leaves": 104,
+                "reg_alpha": 1.9272399541785057,
+                "reg_lambda": 1.7060189109347201,
+                "subsample": 0.7177795568278342,
+                "subsample_freq": 5,
+                "random_state": 42,
+                "verbose": -1,
+                "n_jobs": -1
+            }
+        }
+    },
+    "evaluation_metrics": [
+        "accuracy",
+        "f1_score",
+        "precision",
+        "recall",
+        "roc_auc"
+    ],
+    "outputs": {
+        "metrics_csv": "../artifacts/ExperimentBoost/runsMLP.csv",
+        "figures_directory": "../artifacts/ExperimentBoost/figures",
+        "figures": [
+            {
+                "name": "CmXgb.png",
+                "type": "confusion_matrix",
+                "title": "CmXgb"
+            },
+            {
+                "name": "CmLgb.png",
+                "type": "confusion_matrix",
+                "title": "CmLgb"
+            },
+            {
+                "name": "RocXgb.png",
+                "type": "roc_curve",
+                "title": "RocXgb"
+            },
+            {
+                "name": "RocLgb.png",
+                "type": "roc_curve",
+                "title": "RocLgb"
+            },
+            {
+                "name": "PrXgb.png",
+                "type": "pr_curve",
+                "title": "PrXgb"
+            },
+            {
+                "name": "PrLgb.png",
+                "type": "pr_curve",
+                "title": "PrLgb"
+            }
+        ]
+    },
+    "model_comparison_summary": {
+        "best_f1": 0.3543,
+        "best_model": "XGBoost",
+        "common_characteristics": [
+            "\u041e\u0431\u0435 \u043c\u043e\u0434\u0435\u043b\u0438 \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u044e\u0442 DART \u0431\u0443\u0441\u0442\u0435\u0440",
+            "\u0423\u043c\u0435\u0440\u0435\u043d\u043d\u0430\u044f \u0433\u043b\u0443\u0431\u0438\u043d\u0430 \u0434\u0435\u0440\u0435\u0432\u044c\u0435\u0432 (10-11 \u0443\u0440\u043e\u0432\u043d\u0435\u0439)",
+            "\u041d\u0438\u0437\u043a\u0438\u0439 Precision (~25-27%) \u043f\u0440\u0438 \u0443\u043c\u0435\u0440\u0435\u043d\u043d\u043e\u043c/\u0432\u044b\u0441\u043e\u043a\u043e\u043c Recall"
+        ]
+    },
+    "training_notes": {
+        "xgboost": {
+            "best_f1_cv": 0.3502,
+            "best_params_found": true,
+            "warnings": "\u041f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u044b DART \u0438\u0433\u043d\u043e\u0440\u0438\u0440\u043e\u0432\u0430\u043b\u0438\u0441\u044c \u0434\u043b\u044f gbtree"
+        },
+        "lightgbm": {
+            "best_f1_cv": 0.3479,
+            "best_params_found": true,
+            "failed_fits": 180,
+            "failure_reason": "Cannot use bagging in GOSS"
+        }
+    }
+}

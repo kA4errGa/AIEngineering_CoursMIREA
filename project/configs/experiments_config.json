@@ -1,0 +1,182 @@
+{
+    "experiment": {
+        "data_path": "../data/PROCESSED/LoanDefaultPredictionDatasetPROC.csv",
+        "target_column": "Default",
+        "random_state": 42,
+        "test_size": 0.3,
+        "val_size": 0.5,
+        "stratify": true
+    },
+    "random_search_params": {
+        "logreg": {
+            "n_iter": 500,
+            "cv": 5,
+            "scoring": "f1",
+            "param_distributions": {
+                "logreg__C": "loguniform(0.01, 100)",
+                "logreg__penalty": [
+                    "l1",
+                    "l2",
+                    "elasticnet"
+                ],
+                "logreg__l1_ratio": "uniform(0, 1)",
+                "logreg__tol": "loguniform(1e-5, 1e-3)",
+                "logreg__max_iter": "randint(1000, 5001)",
+                "logreg__class_weight": [
+                    "balanced",
+                    null
+                ],
+                "logreg__fit_intercept": [
+                    true,
+                    false
+                ]
+            }
+        },
+        "decision_tree": {
+            "n_iter": 500,
+            "cv": 5,
+            "scoring": "f1",
+            "param_distributions": {
+                "max_depth": "randint(3, 30)",
+                "min_samples_split": "randint(20, 200)",
+                "min_samples_leaf": "randint(10, 100)",
+                "criterion": [
+                    "gini",
+                    "entropy",
+                    "log_loss"
+                ],
+                "max_features": [
+                    "sqrt",
+                    "log2",
+                    null,
+                    0.3,
+                    0.5,
+                    0.7
+                ],
+                "min_weight_fraction_leaf": "uniform(0, 0.05)",
+                "min_impurity_decrease": [
+                    0.0,
+                    1e-07,
+                    1e-06,
+                    1e-05,
+                    0.0001
+                ],
+                "ccp_alpha": [
+                    0.0,
+                    0.0001,
+                    0.001,
+                    0.005,
+                    0.01,
+                    0.05
+                ],
+                "splitter": [
+                    "best",
+                    "random"
+                ]
+            }
+        },
+        "random_forest": {
+            "n_iter": 30,
+            "cv": 3,
+            "scoring": "f1",
+            "param_distributions": {
+                "n_estimators": "randint(100, 300)",
+                "max_depth": [
+                    15,
+                    30,
+                    null
+                ],
+                "min_samples_split": "randint(10, 200)",
+                "min_samples_leaf": "randint(5, 100)",
+                "max_features": [
+                    "sqrt",
+                    "log2",
+                    null,
+                    0.3,
+                    0.5,
+                    0.7
+                ],
+                "criterion": [
+                    "gini",
+                    "entropy"
+                ],
+                "bootstrap": [
+                    true,
+                    false
+                ]
+            }
+        }
+    },
+    "models": {
+        "logreg_optimized": {
+            "model_name": "LogisticRegressionOptimized",
+            "is_pipeline": true,
+            "scaler": {
+                "name": "StandardScaler",
+                "params": {
+                    "copy": true,
+                    "with_mean": true,
+                    "with_std": true
+                }
+            },
+            "logreg": {
+                "penalty": "l1",
+                "C": 0.016137130466116877,
+                "solver": "saga",
+                "random_state": 42,
+                "class_weight": "balanced",
+                "max_iter": 3438,
+                "tol": 2.1350728935360847e-05,
+                "fit_intercept": true,
+                "l1_ratio": 0.2013637821359744
+            }
+        },
+        "decision_tree_optimized": {
+            "model_name": "DecisionTreeOptimized",
+            "is_pipeline": false,
+            "params": {
+                "random_state": 42,
+                "class_weight": "balanced",
+                "ccp_alpha": 0.0001,
+                "criterion": "entropy",
+                "max_depth": 8,
+                "max_features": 0.5,
+                "min_impurity_decrease": 1e-05,
+                "min_samples_leaf": 57,
+                "min_samples_split": 47,
+                "min_weight_fraction_leaf": 0.0038065429745150095,
+                "splitter": "best"
+            }
+        },
+        "random_forest_optimized": {
+            "model_name": "RandomForestOptimized",
+            "is_pipeline": false,
+            "params": {
+                "random_state": 42,
+                "class_weight": "balanced",
+                "bootstrap": false,
+                "criterion": "gini",
+                "max_depth": 30,
+                "max_features": "sqrt",
+                "min_samples_leaf": 10,
+                "min_samples_split": 37,
+                "n_estimators": 127
+            }
+        },
+        "random_forest_better": {
+            "model_name": "RandomForestBetter",
+            "is_pipeline": false,
+            "params": {
+                "random_state": 42,
+                "class_weight": "balanced",
+                "bootstrap": false,
+                "criterion": "gini",
+                "max_depth": 30,
+                "max_features": "sqrt",
+                "min_samples_leaf": 10,
+                "min_samples_split": 37,
+                "n_estimators": 500
+            }
+        }
+    }
+}
